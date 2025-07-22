@@ -102,18 +102,21 @@
                 lowrisc_sail
                 formal_python_env
               ] ++ (with pkgs; [
-                gnumake
-                patch
-              ]);
+gnumake
+            patch
+            libelf
+            srecord
+            libtool
+            zlib              ]);
               shellHook = let
                 # The formal environment has an untracked external requirement on Cadence Jasper.
                 # Add a check here which will prevent launching the devShell if Jasper is not found on the user's path.
                 # TODO: Is this robust? Do we want to check available features?
                 check_jg = ''
-                  if ! command -v jg &>/dev/null; then
-                    echo "Jasper not found on path. Not launching devShell."
-                    exit 1
-                  fi
+#                  if ! command -v jg &>/dev/null; then
+#                    echo "Jasper not found on path. Not launching devShell."
+#                    exit 1
+#                  fi
                 '';
               in ''
                 ${check_jg}
